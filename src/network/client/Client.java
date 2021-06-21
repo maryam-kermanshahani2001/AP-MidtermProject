@@ -62,6 +62,10 @@ public class Client {
                         System.out.println(cmd.getTopic());
                         mafiaChatRoom();
                         break;
+                    case "ravanShenasMode":
+                        System.out.println(cmd.getTopic());
+                        ravanShenasMode();
+                        break;
 
                 }
             }
@@ -118,7 +122,7 @@ public class Client {
     }
 
     public void chatroomMode() {
-
+        chatResume = true;
         ChatRead chatRead = new ChatRead(objectInputStream, this);
         chatRead.start();
         while (chatResume) {
@@ -169,6 +173,7 @@ public class Client {
 
     public void mafiaChatRoom() {
 
+        chatResume = true;
         ChatRead chatRead = new ChatRead(objectInputStream, this);
         chatRead.start();
 
@@ -205,6 +210,24 @@ public class Client {
         System.out.println("End of the chat");
     }
 
+    public void ravanShenasMode() {
+        while (true) {
+            //objectOutputStream.writeObject("update")
+            try {
+                Message msg = (Message) objectInputStream.readObject();
+                if (msg.getTopic().equals("bye")) {
+                    break;
+                }
+
+                printMessage(msg);
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+
+            }
+            System.out.println("End of the chat");
+        }
+
+    }
 
     public static void main(String[] args) {
 

@@ -4,7 +4,7 @@ public class Player {
     private boolean isPlaying;
     private final String NAME;
     private final Character CHARACTER;
-    private boolean isMafia;
+    private boolean isMafia = false;
     private String vote;
 //    private int lives;
 

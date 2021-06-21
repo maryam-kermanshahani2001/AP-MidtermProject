@@ -23,7 +23,7 @@ public class GameStarter {
         boardInit();
         murderInit();*/
         setRoles();
-//        gameLoop.init();
+        gameLoop.init();
     }
 
 //
@@ -78,39 +78,38 @@ public class GameStarter {
             players[list.get(i)] = new Player(sharedData.clientHandlers.get(i).getNAME(), Character.MAFIA);
             players[list.get(i)].setMafia();
         }*/
-        players[list.get(i)] = new Player(sharedData.clientHandlers.get(i).getNAME(), Character.MAFIA);
+        players[list.get(i)] = new Player(sharedData.clientHandlers.get(list.get(i)).getNAME(), Character.MAFIA);
         players[list.get(i)].setMafia();
         i++;
 
-        players[list.get(i)] = new Player(sharedData.clientHandlers.get(i).getNAME(), Character.DRLECTOR);
+        players[list.get(i)] = new Player(sharedData.clientHandlers.get(list.get(i)).getNAME(), Character.DRLECTOR);
         players[list.get(i)].setMafia();
         i++;
 
-        players[list.get(i)] = new Player(sharedData.clientHandlers.get(i).getNAME(), Character.GODFATHER);
+        players[list.get(i)] = new Player(sharedData.clientHandlers.get(list.get(i)).getNAME(), Character.GODFATHER);
         players[list.get(i)].setMafia();
         i++;
 
-        players[list.get(i)] = new Player(sharedData.clientHandlers.get(i).getNAME(), Character.DOCTORSHAHR);
-
+        players[list.get(i)] = new Player(sharedData.clientHandlers.get(list.get(i)).getNAME(), Character.DOCTORSHAHR);
         i++;
 
-//        players[list.get(i)] = new Player(sharedData.clientHandlers.get(i).getNAME(), Character.KARAGAH);
-//        i++;
-
-//        players[list.get(i)] = new Player(sharedData.clientHandlers.get(i).getNAME(), Character.HERFEI);
-//        i++;
-
-        players[list.get(i)] = new Player(sharedData.clientHandlers.get(i).getNAME(), Character.SHAHRDAR);
+        players[list.get(i)] = new Player(sharedData.clientHandlers.get(list.get(i)).getNAME(), Character.KARAGAH);
         i++;
 
-//        players[list.get(i)] = new Player(sharedData.clientHandlers.get(i).getNAME(), Character.JANSAKHT);
+        players[list.get(i)] = new Player(sharedData.clientHandlers.get(list.get(i)).getNAME(), Character.HERFEI);
+        i++;
+
+        players[list.get(i)] = new Player(sharedData.clientHandlers.get(list.get(i)).getNAME(), Character.SHAHRDAR);
+        i++;
+
+        players[list.get(i)] = new Player(sharedData.clientHandlers.get(list.get(i)).getNAME(), Character.JANSAKHT);
 //        // Handle shahrvand for tedad dg az bazikon ha
-//        i++;
+        i++;
 
-//        players[list.get(i)] = new Player(sharedData.clientHandlers.get(i).getNAME(), Character.SHAHRVAND);
-//        i++;
+        players[list.get(i)] = new Player(sharedData.clientHandlers.get(list.get(i)).getNAME(), Character.SHAHRVAND);
+        i++;
 
-        //players[list.get(i)] = new Player(sharedData.clientHandlers.get(i).getNAME(), Character.KARAGAH);
+        players[list.get(i)] = new Player(sharedData.clientHandlers.get(list.get(i)).getNAME(), Character.RAVANSHENAS);
 
 
         sharedData.players = new ArrayList<Player>(Arrays.asList(players));
@@ -120,9 +119,7 @@ public class GameStarter {
         }
 
         sharedData.removedPlayers = new ArrayList<>();
-        GameManager gameManager = new GameManager();
-        gameManager.firstNightRun();
-        gameManager.firstDayRun();
+
 
     }
 

@@ -1,10 +1,12 @@
 package network.server;
 
 import Elements.Message;
+import network.client.ChatRead;
 import utils.SharedData;
 
 import java.io.*;
 import java.net.*;
+import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -133,6 +135,11 @@ public class ClientHandler extends Thread {
                 latch.countDown();
                 command = "hold";
 
+            } else if (command.equals("ravanShenasChatMode")) {
+                whileCondition = false;
+                ravanShenasMode();
+                latch.countDown();
+                command = "hold";
             }
 
 
@@ -173,6 +180,9 @@ public class ClientHandler extends Thread {
         try {
             Message message;
 //            String clientMessage;
+            String text = "chatroom mode";
+            message = new Message("chatroom", "gameManager", "all", text);
+            sendMessage(message);
             Message clientMessage;
             long t = System.currentTimeMillis();
             long end = t + 30000;
@@ -220,7 +230,7 @@ public class ClientHandler extends Thread {
             String txt = userName + " vote " + clientVote;
             server.broadcast(new Message("-", userName, "all", txt));
 
-            server.broadcast(new Message("bye", userName, "gameManager", "end of the loop"));
+//            sendMessage(new Message("bye", userName, "gameManager", "end of the loop"));
             whileCondition = true;
 
         } catch (IOException ex) {
@@ -249,9 +259,11 @@ public class ClientHandler extends Thread {
 
     public void mafiaChat() {
         try {
-            String txt = "Mafia team open your eyes and write down the message";
-            server.broadcast(new Message("mafiaChat", "gameManager", "Mafias", txt));
             Message message;
+            String text = "Mafia team open your eyes and write down the message";
+            message = new Message("mafiaChat", "gameManager", "all", text);
+            sendMessage(message);
+
             Message clientMessage;
 
             long t = System.currentTimeMillis();
@@ -280,6 +292,29 @@ public class ClientHandler extends Thread {
         }
     }
 
+    public void ravanShenasMode() {
+
+        try {
+            String txt = "you blocked by ravanshenas . you cant write anything";
+            sendMessage(new Message("chatroom", "gameManager", "all", txt));
+
+           /* long t = System.currentTimeMillis();
+            long end = t + 30000;*/
+            long time = 30000;
+            wait(time);
+           /* while (System.currentTimeMillis() < end) {
+
+            }*/
+
+            sendMessage(new Message("bye", userName, "gameManager", "end of the loop"));
+            whileCondition = true;
+            System.out.println("im here");
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     /**
      * Sends a message to the client.
@@ -316,4 +351,6 @@ public class ClientHandler extends Thread {
     public String getClientVote() {
         return clientVote;
     }
+
+
 }
