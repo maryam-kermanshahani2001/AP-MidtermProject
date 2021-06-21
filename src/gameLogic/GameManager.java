@@ -425,24 +425,26 @@ public class GameManager {
 //            }
 //        }
 
-        if (isExist(Character.HERFEI) && !(herfeiTurn(herfeiIndex).equals("no one"))) {
+        if (isExist(Character.HERFEI)) {
             String herfeiVote = herfeiTurn(herfeiIndex);
+            if (!herfeiVote.equals("no one")) {
          /*   if (!herfeiVote.equals("no one"))
                 System.out.println("");*/
-            if (isExist(Character.DRLECTOR)) {
-                String drlectorVote = drLectorTurn(drLectorIndex);
-                if (isCitizen(herfeiVote)) {
-                    txtOfMessage = "you removed a citizen. so you lose";
-                    sharedData.clientHandlers.get(herfeiIndex).sendMessage(new Message("-", "gameManager", "HERFEI", txtOfMessage));
-                    removePlayer(sharedData.players.get(herfeiIndex).getNAME());
-                } else {
-                    if (herfeiVote.equals(sharedData.players.get(drLectorIndex).getNAME())) {
-                        if (!drlectorVote.equals("me")) {
-                            removePlayer(sharedData.players.get(drLectorIndex).getNAME());
-                        }
+                if (isExist(Character.DRLECTOR)) {
+                    String drlectorVote = drLectorTurn(drLectorIndex);
+                    if (isCitizen(herfeiVote)) {
+                        txtOfMessage = "you removed a citizen. so you lose";
+                        sharedData.clientHandlers.get(herfeiIndex).sendMessage(new Message("-", "gameManager", "HERFEI", txtOfMessage));
+                        removePlayer(sharedData.players.get(herfeiIndex).getNAME());
                     } else {
-                        if (!drlectorVote.equals(herfeiVote)) {
-                            removePlayer(herfeiVote);
+                        if (herfeiVote.equals(sharedData.players.get(drLectorIndex).getNAME())) {
+                            if (!drlectorVote.equals("me")) {
+                                removePlayer(sharedData.players.get(drLectorIndex).getNAME());
+                            }
+                        } else {
+                            if (!drlectorVote.equals(herfeiVote)) {
+                                removePlayer(herfeiVote);
+                            }
                         }
                     }
                 }
@@ -850,8 +852,7 @@ public class GameManager {
                     gameState.drLectorSelfReviveCount++;
                     break;
                 }
-            }
-            else
+            } else
                 break;
         } while (true);
         return vote;
